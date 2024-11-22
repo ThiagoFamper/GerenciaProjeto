@@ -1,5 +1,6 @@
 package br.edu.famper.gerenciaprojeto.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,12 +27,14 @@ public class Tarefa {
     @Column(name = "descricao", length = 500)
     private String descricao;
 
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "projeto_id")
+    @JoinColumn(name = "projeto_id", referencedColumnName = "id")
     private Projeto projeto;
 
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "colaborador_id")
+    @JoinColumn(name = "colaborador_id", referencedColumnName = "id")
     private Colaborador colaborador;
 
     @OneToMany(mappedBy = "tarefa", targetEntity = Recurso.class,
